@@ -5,9 +5,9 @@ This assignment demonstrates the implementation of a Hashed Time-Lock Contract (
 
 An HTLC is a smart contract mechanism that allows two parties (in this case, Alice and Bob) to exchange funds in a trustless way. It ensures fairness by enforcing two important conditions:
 
-    - A hashlock, which allows Alice to claim funds only if she provides a correct secret.
+- A hashlock, which allows Alice to claim funds only if she provides a correct secret.
 
-    - A timelock, which allows Bob to recover/ refund the funds if Alice does not act within a specified time.
+- A timelock, which allows Bob to recover/ refund the funds if Alice does not act within a specified time.
 
 This combination ensures that either the correct secret is revealed and funds are claimed, or the sender safely gets their funds back after a delay.
 
@@ -17,7 +17,7 @@ The Assignment submission is organized into two main folders:
 
 assignment-b-htlc/
 
-    - scripts/
+   - scripts/
     This folder contains all the Bitcoin scripts used in the assignment:
 
        - htlc_script.txt (main locking script)
@@ -62,15 +62,15 @@ I  performed all the tests using Bitcoin Core in regtest mode.
 
 Regtest is a local blockchain environment that allows full control over:
 
-    - Mining blocks instantly
+- Mining blocks instantly
 
-    - Creating wallets and transactions
+- Creating wallets and transactions
 
-    - Testing scripts without using real Bitcoin
+- Testing scripts without using real Bitcoin
 
 This makes it ideal for safely experimenting with Bitcoin Script logic such as HTLCs.
 
-### `Fee Configuration Note`
+#### `Fee Configuration Note`
 
 While working on the assignment, I encountered an error when trying to send a transaction:
 
@@ -91,9 +91,7 @@ The HTLC relies on a secret and its corresponding hashes.
 
 ### `Secret`
 
-The secret used in this assignment is:
-
-supersecret13
+The secret used in this assignment is: supersecret123
 
 This value is stored in:
 outputs/secret_used.txt
@@ -118,9 +116,9 @@ This script defines two possible spending paths using conditional logic.
 
 If the correct condition is met, one of two branches is executed:
 
-    - Alice’s path (claim funds using secret)
+- Alice’s path (claim funds using secret)
 
-    - Bob’s path (refund after time delay)
+- Bob’s path (refund after time delay)
 
 ### `Script Breakdown`
 
@@ -140,9 +138,9 @@ This ensures that Alice signs the transaction.
 
 For Alice to claim the funds, she must:
 
-    - Provide the correct secret
+- Provide the correct secret
 
-    - Produce a valid signature
+ - Produce a valid signature
 
 #### **Bob’s Branch (Timelock)**
 
@@ -156,9 +154,9 @@ This ensures that Bob signs the transaction.
 
 For Bob to refund the funds, he must:
 
-    - Wait until the locktime is reached
+- Wait until the locktime is reached
 
-    - Provide a valid signature
+- Provide a valid signature
 
 Script Ends
 
@@ -171,10 +169,10 @@ This closes the conditional logic.
 
 Two addresses were created:
 
-Alice Address:
+- Alice Address:
 $(cat outputs/alice_address.txt)
 
-Bob Address:
+- Bob Address:
 $(cat outputs/bob_address.txt)
 
 Their corresponding public keys were extracted and stored for use in the script.
@@ -196,7 +194,7 @@ $(cat outputs/funding_txid.txt)
 
 ### **Important Note**
 
-The HTLC funding in this assignment is simulated.Instead of locking funds directly into a custom script (like P2SH or P2WSH), funds were sent to a standard address and treated as if they were locked by the HTLC.
+I simulated the HTLC funding in this assignment instead of locking funds directly into a custom script (like P2SH or P2WSH), funds were sent to a standard address and treated as if they were locked by the HTLC.
 
 
 ## 7. Locktime Implementation
@@ -208,10 +206,10 @@ $(cat outputs/locktime.txt)
 
 To test this, i saved the before and the after outputs:
 
-Before mining blocks:
+- Before mining blocks:
 $(cat outputs/block_before.txt)
 
-After mining additional blocks:
+- After mining additional blocks:
 $(cat outputs/block_after.txt)
 
 Two blocks were mined to move from block 202 to 204, satisfying the locktime condition.
@@ -234,11 +232,11 @@ Stored in: scripts/claim_script.txt
 
 Alice claims funds by:
 
-    - Providing the correct secret
+ - Providing the correct secret
 
-    - Triggering the correct branch (using OP_TRUE / 1)
+ - Triggering the correct branch (using OP_TRUE / 1)
 
-    - Providing a valid signature
+ - Providing a valid signature
 
 This satisfies the hashlock condition.
 
@@ -248,11 +246,11 @@ I have stored this in: scripts/refund_script.txt
 
 Bob refunds funds by:
 
-    - Waiting until the locktime is reached
+- Waiting until the locktime is reached
 
-    - Triggering the alternative branch (using OP_FALSE / 0)
+- Triggering the alternative branch (using OP_FALSE / 0)
 
-    - Providing a valid signature
+- Providing a valid signature
 
 This satisfies the timelock condition.
 
